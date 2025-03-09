@@ -1,0 +1,41 @@
+# This is Git's per-user configuration file.
+[user]
+    email = mike.malyshev@gmail.com
+    name = Mikhail Malyshev
+	username = rucoder
+[core]
+    editor=vim
+[credential]
+	helper = store
+
+[alias]
+    c = commit -s
+    s = status
+
+# ------------------ M E R G E -------------------------
+[merge]
+    tool = meld
+
+[mergetool "meld"]
+    cmd = meld --auto-merge \"$LOCAL\" \"$BASE\" \"$REMOTE\" --output \"$MERGED\" --label \"MERGE (REMOTE BASE MY)\"
+    trustExitCode = false
+
+[mergetool]
+    # don't ask if we want to skip merge
+    prompt = false
+
+    # don't create backup *.orig files
+    keepBackup = false
+
+# ------------------ D I F F -------------------------
+[diff]
+    guitool = meld
+
+[difftool "meld"]
+    cmd = meld \"$LOCAL\" \"$REMOTE\" --label \"DIFF (ORIGINAL MY)\"    
+[alias]
+    find-merge = "!sh -c 'commit=$0 && branch=${1:-HEAD} && (git rev-list $commit..$branch --ancestry-path | cat -n; git rev-list $commit..$branch --first-parent | cat -n) | sort -k2 -s | uniq -f1 -d | sort -n | tail -1 | cut -f2'"
+[url "https://invent.kde.org/"]
+	insteadOf = kde:
+[url "ssh://git@invent.kde.org/"]
+	pushInsteadOf = kde:
